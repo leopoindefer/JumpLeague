@@ -37,7 +37,7 @@ function love.load()
 	player.jump_height = -400
 	player.gravity = -500
 
-	success = love.window.setMode( 800, 450, boolean)
+	success = love.window.setMode( 890, 500, boolean)
 
 	-- Initialisation des variables de vagues d'ennemis
 	waveCount = 1
@@ -77,7 +77,7 @@ function love.update(dt)
 	if score >= 15 and love.keyboard.isDown('c') then
 		playerdroit = love.graphics.newImage('resources/images/thomas.png')
 		playergauche = love.graphics.newImage('resources/images/thomasgauche.png')
-		player.jump_height = -600
+		player.jump_height = -400
 		player.gravity = -300
 		player.down = 600
 	end
@@ -85,7 +85,7 @@ function love.update(dt)
 	if score >= 20 and love.keyboard.isDown('v') then
 		playerdroit = love.graphics.newImage('resources/images/mateo.png')
 		playergauche = love.graphics.newImage('resources/images/mateogauche.png')
-		player.jump_height = -700
+		player.jump_height = -350
 		player.gravity = -200
 		player.down = 1000
 	end
@@ -101,6 +101,10 @@ function love.update(dt)
 	if waveTimer < 0 then
 		waveTimer = waveTimerMax
 		local enemySpeed = 100 + (waveCount - 1) * waveSpeedIncrease
+		if score>=15 then
+			waveTimerMax = 15
+			enemySpeed = enemySpeed * 0.5
+		end
 		local enemy = {
 			x = love.graphics.getWidth(),
 			y = platform.y - enemyHeight,
